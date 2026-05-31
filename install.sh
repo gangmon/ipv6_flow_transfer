@@ -15,8 +15,19 @@ echo "  Clash IPv6 Relay — 安装"
 echo "======================================"
 
 # ── 1. 确保目录存在 ──
+mkdir -p "$RELAY_DIR"
 mkdir -p "$LAUNCH_AGENTS_DIR"
 mkdir -p "$LOG_DIR"
+
+# ── 1b. 复制 relay.py（如果 install.sh 是在项目目录下运行）──
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+if [ -f "$SCRIPT_DIR/relay.py" ]; then
+    cp "$SCRIPT_DIR/relay.py" "$RELAY_DIR/relay.py"
+    chmod +x "$RELAY_DIR/relay.py"
+    echo "✓  复制 relay.py → $RELAY_DIR/relay.py"
+elif [ ! -f "$RELAY_DIR/relay.py" ]; then
+    echo "⚠️  $RELAY_DIR/relay.py 不存在，请手动复制"
+fi
 
 # ── 2. 写入 LaunchAgent plist ──
 cat > "$PLIST_DEST" << PLIST
