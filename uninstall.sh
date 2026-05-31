@@ -22,13 +22,5 @@ fi
 # ── 2. 停止 relay 进程 ──
 python3 "$RELAY_DIR/relay.py" --stop 2>/dev/null || true
 
-# ── 3. 删除项目目录 ──
-echo ""
-echo "是否删除项目目录 $RELAY_DIR ？(y/N)"
-read -r confirm
-if [ "$confirm" = "y" ] || [ "$confirm" = "Y" ]; then
-    rm -rf "$RELAY_DIR"
-    echo "✓  已删除 $RELAY_DIR"
-fi
 
 echo "✅  卸载完成"
